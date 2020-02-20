@@ -49,8 +49,10 @@ Buffer* b_allocate(short init_capacity, char inc_factor, char o_mode)
 
     /*Allocate memory for one dynamic character*/
     /*If initial capacity is 0, create a character buffer with 200 characters*/
-    if (init_capacity == 0) {
+    if (init_capacity == 0) 
+    {
 
+        init_capacity = DEFAULT_INIT_CAPACITY;
         pBuffer->cb_head = (char*)malloc(sizeof(char) * DEFAULT_INIT_CAPACITY);
 
         if (pBuffer->cb_head == NULL) {
@@ -60,7 +62,8 @@ Buffer* b_allocate(short init_capacity, char inc_factor, char o_mode)
         }
 
         /*Set inc_factor to 15 in mode a and m, 0 in mode f and none if no mode*/
-        if (o_mode == 'a') {
+        if (o_mode == 'a')
+        {
             pBuffer->inc_factor = INC_FACTOR_A_M;
             pBuffer->mode = MODE_ADD;
         }
@@ -260,7 +263,7 @@ Algorithm:			   The function de-allocates (frees) the memory
 void b_free(Buffer* const pBD) 
 {
     /*Check the pointers to the array*/
-    if (pBD->cb_head != NULL) 
+    if (pBD != NULL) 
     {
         free(pBD->cb_head);
         pBD->cb_head = NULL;
@@ -550,7 +553,7 @@ int b_print(Buffer* const pBD, char nl)
             printf("%c", temp);
         char_num++;
     }
-    if (nl != 0)
+    if (nl)
         printf("\n");// Print the newline character if the nl parameter does not equal 0
     return char_num;
 }
